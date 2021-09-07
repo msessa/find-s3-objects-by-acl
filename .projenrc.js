@@ -5,6 +5,7 @@ const project = new TypeScriptAppProject({
   repositoryUrl: 'https://github.com/msessa/find-s3-objects-by-acl',
   authorName: 'Matteo Sessa',
   authorEmail: 'matteo.sessa@gmail.com',
+  package: true,
   release: true,
   releaseToNpm: true,
   defaultReleaseBranch: 'main',

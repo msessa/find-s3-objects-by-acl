@@ -17,6 +17,7 @@
     "upgrade-projen": "npx projen upgrade-projen",
     "default": "npx projen default",
     "watch": "npx projen watch",
+    "package": "npx projen package",
     "eslint": "npx projen eslint",
     "release": "npx projen release",
     "projen": "npx projen"
