@@ -4,9 +4,10 @@ const project = new TypeScriptAppProject({
   name: 'find-s3-objects-by-acl',
 
   // deps: [],                /* Runtime dependencies of this module. */
-  // description: undefined,  /* The description is just a string that helps people understand the purpose of the package. */
   // devDeps: [],             /* Build dependencies for this module. */
-  // packageName: undefined,  /* The "name" in package.json. */
-  release: true, /* Add release management to this project. */
+  description: 'Scan a S3 bucket recursively and print objects matching one or more ACLs ',
+  packageName: '@msessa/find-s3-objects-by-acl',
+  release: true,
+  npmDistTag: 'latest',
 });
 project.synth();
