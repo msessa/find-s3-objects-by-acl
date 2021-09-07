@@ -13,6 +13,8 @@ const project = new TypeScriptAppProject({
 
   deps: [
     'cmd-ts@^0.6',
+    '@aws-sdk/client-s3',
   ],
 });
+project.tsconfig.file.addOverride('compilerOptions.lib', ['es2018', 'dom']);
 project.synth();

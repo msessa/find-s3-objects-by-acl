@@ -1,21 +1,51 @@
-import { command, run, string, number, positional, option } from 'cmd-ts';
+import { command, run, string, positional, option, multioption, array, optional, oneOf } from 'cmd-ts';
+import { getObjectMatchingAcls } from '..';
+
 
 const cmd = command({
-  name: 'my-command',
-  description: 'print something to the screen',
-  version: '1.0.0',
+  name: 'find-s3-objects-by-acl',
+  description: 'Scan a S3 bucket recursively and print objects matching a specific ACL',
   args: {
-    number: positional({ type: number, displayName: 'num' }),
-    message: option({
-      long: 'greeting',
-      type: string,
+    bucket: positional({ type: string, displayName: 'bucket' }),
+    prefix: option({
+      long: 'prefix',
+      type: optional(string),
+    }),
+    acl: multioption({
+      long: 'acl',
+      type: array(string),
+      description: 'object ACL to scan, can be repeated multiple times',
+    }),
+    output: option({
+      long: 'output',
+      type: optional(oneOf(['csv', 'json'])),
     }),
   },
   handler: args => {
-    args.message; // string
-    args.number; // number
-    console.log(args);
+    let f: Promise<void>;
+    switch (args.output) {
+      case 'csv':
+        f = printObjectsMatchingAclAsCsv(args.bucket, args.acl, args.prefix);
+        break;
+      default:
+        f = printObjectsMatchingAclAsJsonStream(args.bucket, args.acl, args.prefix);
+    }
+    f.catch((err: Error) => {
+      console.log(err);
+    });
   },
 });
+
+async function printObjectsMatchingAclAsJsonStream(bucketName: string, acls: string[], prefix?: string) {
+  for await (const o of getObjectMatchingAcls(bucketName, acls, prefix)) {
+    console.log(o);
+  };
+}
+
+async function printObjectsMatchingAclAsCsv(bucketName: string, acls: string[], prefix?: string) {
+  for await (const o of getObjectMatchingAcls(bucketName, acls, prefix)) {
+    Object.entries(o).forEach(([key, value]) => console.log(`${key},${value}`));
+  };
+}
 
 void run(cmd, process.argv.slice(2));
