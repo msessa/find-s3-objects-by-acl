@@ -10,5 +10,9 @@ const project = new TypeScriptAppProject({
   releaseToNpm: true,
   npmAccess: NpmAccess.PUBLIC,
   defaultReleaseBranch: 'main',
+
+  deps: [
+    'cmd-ts@^0.6',
+  ],
 });
 project.synth();
