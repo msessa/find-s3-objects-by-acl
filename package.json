@@ -1,5 +1,6 @@
 {
-  "name": "find-s3-objects-by-acl",
+  "name": "@msessa/find-s3-objects-by-acl",
+  "description": "Scan a S3 bucket recursively and print objects matching one or more ACLs ",
   "scripts": {
     "clobber": "npx projen clobber",
     "compile": "npx projen compile",
@@ -11,6 +12,7 @@
     "bump": "npx projen bump",
     "unbump": "npx projen unbump",
     "publish:github": "npx projen publish:github",
+    "publish:npm": "npx projen publish:npm",
     "upgrade": "npx projen upgrade",
     "upgrade-projen": "npx projen upgrade-projen",
     "default": "npx projen default",
@@ -18,6 +20,11 @@
     "eslint": "npx projen eslint",
     "release": "npx projen release",
     "projen": "npx projen"
+  },
+  "author": {
+    "name": "Matteo Sessa",
+    "email": "matteo.sessa@gmail.com",
+    "organization": false
   },
   "devDependencies": {
     "@types/jest": "^27.0.1",

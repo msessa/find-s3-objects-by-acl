@@ -1,13 +1,12 @@
 const { TypeScriptAppProject } = require('projen');
 const project = new TypeScriptAppProject({
-  defaultReleaseBranch: 'main',
-  name: 'find-s3-objects-by-acl',
-
-  // deps: [],                /* Runtime dependencies of this module. */
-  // devDeps: [],             /* Build dependencies for this module. */
+  name: '@msessa/find-s3-objects-by-acl',
   description: 'Scan a S3 bucket recursively and print objects matching one or more ACLs ',
-  packageName: '@msessa/find-s3-objects-by-acl',
+  repositoryUrl: 'https://github.com/msessa/find-s3-objects-by-acl',
+  authorName: 'Matteo Sessa',
+  authorEmail: 'matteo.sessa@gmail.com',
   release: true,
-  npmDistTag: 'latest',
+  releaseToNpm: true,
+  defaultReleaseBranch: 'main',
 });
 project.synth();
