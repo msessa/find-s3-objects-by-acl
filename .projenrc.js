@@ -1,4 +1,4 @@
-const { TypeScriptAppProject } = require('projen');
+const { TypeScriptAppProject, NpmAccess } = require('projen');
 const project = new TypeScriptAppProject({
   name: '@msessa/find-s3-objects-by-acl',
   description: 'Scan a S3 bucket recursively and print objects matching one or more ACLs ',
@@ -8,6 +8,7 @@ const project = new TypeScriptAppProject({
   package: true,
   release: true,
   releaseToNpm: true,
+  npmAccess: NpmAccess.PUBLIC,
   defaultReleaseBranch: 'main',
 });
 project.synth();
