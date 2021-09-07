@@ -1426,6 +1426,16 @@ clone-response@^1.0.2:
   dependencies:
     mimic-response "^1.0.0"
 
+cmd-ts@^0.6:
+  version "0.6.9"
+  resolved "https://registry.yarnpkg.com/cmd-ts/-/cmd-ts-0.6.9.tgz#dcc2c4a19b51c91eb62fb565a49f05aca5505186"
+  integrity sha512-pWMhILm1enypPvEb29XSLUW58oFtqu97XMM7L+Pw0ynugkALGfi/O86Tawt8L3uMRlNMW7pzzjwBG/Zxzj4d8Q==
+  dependencies:
+    chalk "^4.0.0"
+    debug "^4.1.1"
+    didyoumean "^1.2.1"
+    strip-ansi "^6.0.0"
+
 co@^4.6.0:
   version "4.6.0"
   resolved "https://registry.yarnpkg.com/co/-/co-4.6.0.tgz#6ea6bdf3d853ae54ccb8e47bfa0bf3f9031fb184"
@@ -1881,6 +1891,11 @@ detect-newline@^3.0.0, detect-newline@^3.1.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/detect-newline/-/detect-newline-3.1.0.tgz#576f5dfc63ae1a192ff192d8ad3af6308991b651"
   integrity sha512-TLz+x/vEXm/Y7P7wn1EJFNLxYpUD4TgMosxY6fAVJUnJMbupHBOncxyWUG9OpTaH9EBD7uFI5LfEgmMOc54DsA==
+
+didyoumean@^1.2.1:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/didyoumean/-/didyoumean-1.2.2.tgz#989346ffe9e839b4555ecf5666edea0d3e8ad037"
+  integrity sha512-gxtyfqMg7GKyhQmb056K7M3xszy/myH8w+B4RT+QXBQsvAOdc3XymqDDPHx1BgPgsdAA5SIifona89YtRATDzw==
 
 diff-sequences@^27.0.6:
   version "27.0.6"

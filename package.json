@@ -1,6 +1,9 @@
 {
   "name": "@msessa/find-s3-objects-by-acl",
   "description": "Scan a S3 bucket recursively and print objects matching one or more ACLs ",
+  "bin": {
+    "find-s3-objects-by-acl": "bin/find-s3-objects-by-acl"
+  },
   "scripts": {
     "clobber": "npx projen clobber",
     "compile": "npx projen compile",
@@ -44,6 +47,9 @@
     "standard-version": "^9",
     "ts-jest": "^27.0.5",
     "typescript": "^4.4.2"
+  },
+  "dependencies": {
+    "cmd-ts": "^0.6"
   },
   "bundledDependencies": [],
   "license": "Apache-2.0",

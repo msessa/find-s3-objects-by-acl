@@ -1,0 +1,2 @@
+#!/usr/bin/env node
+require('../lib/cmd/find-s3-objects-by-acl');
