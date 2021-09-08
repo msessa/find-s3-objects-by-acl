@@ -10,9 +10,17 @@ const project = new TypeScriptAppProject({
   releaseToNpm: true,
   npmAccess: NpmAccess.PUBLIC,
   defaultReleaseBranch: 'main',
+  jest: true,
 
   deps: [
-    'cmd-ts@^0.6',
+    'cmd-ts',
+    '@aws-sdk/client-s3',
   ],
 });
+
+// add support for dom library in typescript compiler
+project.tsconfig.file.addOverride('compilerOptions.lib', ['es2018', 'dom']);
+project.tsconfigEslint.file.addOverride('compilerOptions.lib', ['es2018', 'dom']);
+project.tryFindObjectFile('tsconfig.jest.json').addOverride('compilerOptions.lib', ['es2018', 'dom']);
+
 project.synth();
