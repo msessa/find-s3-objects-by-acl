@@ -74,7 +74,6 @@
     },
     {
       "name": "cmd-ts",
-      "version": "^0.6",
       "type": "runtime"
     }
   ],

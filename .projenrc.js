@@ -13,8 +13,8 @@ const project = new TypeScriptAppProject({
   jest: true,
 
   deps: [
-    'cmd-ts@^0.6',
-    '@aws-sdk/client-s3@^3',
+    'cmd-ts',
+    '@aws-sdk/client-s3',
   ],
 });
 
