@@ -10,7 +10,7 @@ export async function* getObjectMatchingAcls(bucketName: string, acls: string[],
     // Perform checks against the selected acls
     for (const acl of acls) {
       if (mapTesterFuncToCannedAclName(acl)(objGrants!) === true) {
-        yield { [objKey]: acl };
+        yield { key: objKey, acl: acl };
       }
     }
   }
@@ -57,8 +57,6 @@ async function* getObjectsInBucket(client: S3Client, bucketName: string, prefix?
 
   const objectNames: string[] = [];
   for await (const page of paginator) {
-    // page contains a single paginated output.
-    // objectNames.push(...page.Contents!.map(v => v.Key!));
     for (const k of page.Contents!.map(v => v.Key!)) {
       yield k;
     }

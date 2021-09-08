@@ -4,34 +4,49 @@ import { getObjectMatchingAcls } from '..';
 
 const cmd = command({
   name: 'find-s3-objects-by-acl',
-  description: 'Scan a S3 bucket recursively and print objects matching a specific ACL',
+  description: 'Scan a S3 bucket recursively and print objects matching the selected ACLs',
   args: {
-    bucket: positional({ type: string, displayName: 'bucket' }),
+    bucket: positional({
+      type: string,
+      displayName: 'bucket',
+      description: 'target S3 bucket',
+    }),
     prefix: option({
       long: 'prefix',
       type: optional(string),
+      description: 'object prefix for recursive scanning',
     }),
     acl: multioption({
       long: 'acl',
-      type: array(string),
-      description: 'object ACL to scan, can be repeated multiple times',
+      type: optional(array(string)),
+      description: 'object ACL to match, can be repeated multiple times (default: public-read,public-write)',
     }),
     output: option({
       long: 'output',
-      type: optional(oneOf(['csv', 'json'])),
+      type: optional(oneOf(['tsv', 'json'])),
+      description: 'output format (default: tsv)',
     }),
   },
   handler: args => {
     let f: Promise<void>;
+    let acls: string[];
+
+    if (args.acl) {
+      acls = args.acl;
+    } else {
+      acls = ['public-read', 'public-write'];
+    }
+
     switch (args.output) {
-      case 'csv':
-        f = printObjectsMatchingAclAsCsv(args.bucket, args.acl, args.prefix);
+      case 'json':
+        f = printObjectsMatchingAclAsJsonStream(args.bucket, acls, args.prefix);
         break;
       default:
-        f = printObjectsMatchingAclAsJsonStream(args.bucket, args.acl, args.prefix);
+        f = printObjectsMatchingAclAsTsv(args.bucket, acls, args.prefix);
     }
     f.catch((err: Error) => {
-      console.log(err);
+      console.error(err);
+      process.exit(1);
     });
   },
 });
@@ -42,9 +57,9 @@ async function printObjectsMatchingAclAsJsonStream(bucketName: string, acls: str
   };
 }
 
-async function printObjectsMatchingAclAsCsv(bucketName: string, acls: string[], prefix?: string) {
+async function printObjectsMatchingAclAsTsv(bucketName: string, acls: string[], prefix?: string) {
   for await (const o of getObjectMatchingAcls(bucketName, acls, prefix)) {
-    Object.entries(o).forEach(([key, value]) => console.log(`${key},${value}`));
+    console.log([o.key, o.acl].join('\t'));
   };
 }
 

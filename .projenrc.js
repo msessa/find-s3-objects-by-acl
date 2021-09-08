@@ -14,7 +14,7 @@ const project = new TypeScriptAppProject({
 
   deps: [
     'cmd-ts@^0.6',
-    '@aws-sdk/client-s3',
+    '@aws-sdk/client-s3@^3',
   ],
 });
 
