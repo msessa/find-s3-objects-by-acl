@@ -62,7 +62,7 @@ async function getObjectAclGrants(client: S3Client, bucketName: string, objectKe
 async function* getObjectsInBucket(client: S3Client, bucketName: string, prefix?: string) {
   const paginatorConfig = {
     client: client,
-    pageSize: 10,
+    pageSize: 100,
     prefix: prefix,
   };
   const commandParams: ListObjectsV2CommandInput = {
