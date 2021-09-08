@@ -1,6 +1,23 @@
 # find-s3-objects-by-acl
 Scan a S3 bucket recursively and print objects matching one or more ACLs
 
+## Pre-requisites
+- Node.js version 14.17 or above
+- Valid AWS credentials and region configured in your shell
+
+## Installation
+### As global package
+```bash
+npm install -g @msessa/find-s3-objects-by-acl
+find-s3-objects-by-acl --help
+```
+
+### With `npx`
+```bash
+npx @msessa/find-s3-objects-by-acl --help
+```
+
+
 ## Usage
 ```
 find-s3-objects-by-acl
