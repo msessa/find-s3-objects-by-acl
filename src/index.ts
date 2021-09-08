@@ -8,10 +8,14 @@ export async function* getObjectMatchingAcls(bucketName: string, acls: string[],
     const objGrants = await getObjectAclGrants(client, bucketName, objKey);
 
     // Perform checks against the selected acls
+    let matchingAcls: string[] = [];
     for (const acl of acls) {
       if (mapTesterFuncToCannedAclName(acl)(objGrants!) === true) {
-        yield { key: objKey, acl: acl };
+        matchingAcls.push(acl);
       }
+    }
+    if (matchingAcls.length) {
+      yield { key: objKey, acls: matchingAcls };
     }
   }
 }
@@ -25,10 +29,21 @@ function testGrantsForPublicRead(grants: Grant[]): boolean {
   return false;
 }
 
+function testGrantsForPublicReadWrite(grants: Grant[]): boolean {
+  for (let g of grants) {
+    if (g.Permission === 'WRITE' && g.Grantee?.URI === 'http://acs.amazonaws.com/groups/global/AllUsers') {
+      return true;
+    }
+  }
+  return false;
+}
+
 function mapTesterFuncToCannedAclName(aclName: string): (grants: Grant[]) => boolean {
   switch (aclName) {
     case 'public-read':
       return testGrantsForPublicRead;
+    case 'public-read-write':
+      return testGrantsForPublicReadWrite;
     default:
       throw new Error(`acl with name '${aclName}' is not supported`);
   }

@@ -31,10 +31,10 @@ const cmd = command({
     let f: Promise<void>;
     let acls: string[];
 
-    if (args.acl) {
+    if (args.acl && args.acl.length > 0) {
       acls = args.acl;
     } else {
-      acls = ['public-read', 'public-write'];
+      acls = ['public-read', 'public-read-write'];
     }
 
     switch (args.output) {
@@ -59,7 +59,7 @@ async function printObjectsMatchingAclAsJsonStream(bucketName: string, acls: str
 
 async function printObjectsMatchingAclAsTsv(bucketName: string, acls: string[], prefix?: string) {
   for await (const o of getObjectMatchingAcls(bucketName, acls, prefix)) {
-    console.log([o.key, o.acl].join('\t'));
+    console.log([o.key, o.acls.join(',')].join('\t'));
   };
 }
 
