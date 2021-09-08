@@ -1,7 +1,7 @@
 import { GetObjectAclCommand, Grant, ListObjectsV2CommandInput, paginateListObjectsV2, S3Client } from '@aws-sdk/client-s3';
 
 
-export async function* getObjectMatchingAcls(bucketName: string, acls: string[], prefix?: string) {
+export async function* getObjectMatchingAcls(bucketName: string, acls: string[], prefix?: string): AsyncGenerator<{ key: string; acls: string[] }> {
   const client = new S3Client({});
   for await (const objKey of getObjectsInBucket(client, bucketName, prefix)) {
     // Get object acls
@@ -50,16 +50,16 @@ function mapTesterFuncToCannedAclName(aclName: string): (grants: Grant[]) => boo
 }
 
 
-async function getObjectAclGrants(client: S3Client, bucketName: string, objectKey: string) {
+async function getObjectAclGrants(client: S3Client, bucketName: string, objectKey: string): Promise<Grant[]> {
   const resp = await client.send(new GetObjectAclCommand({
     Bucket: bucketName,
     Key: objectKey,
   }));
-  return resp.Grants;
+  return resp.Grants || Promise.resolve([]);
 }
 
 
-async function* getObjectsInBucket(client: S3Client, bucketName: string, prefix?: string) {
+async function* getObjectsInBucket(client: S3Client, bucketName: string, prefix?: string): AsyncGenerator<string> {
   const paginatorConfig = {
     client: client,
     pageSize: 100,
@@ -70,7 +70,6 @@ async function* getObjectsInBucket(client: S3Client, bucketName: string, prefix?
   };
   const paginator = paginateListObjectsV2(paginatorConfig, commandParams);
 
-  const objectNames: string[] = [];
   for await (const page of paginator) {
     if (!page.Contents) {
       continue;
@@ -79,5 +78,4 @@ async function* getObjectsInBucket(client: S3Client, bucketName: string, prefix?
       yield k;
     }
   }
-  return objectNames;
 }
