@@ -72,7 +72,10 @@ async function* getObjectsInBucket(client: S3Client, bucketName: string, prefix?
 
   const objectNames: string[] = [];
   for await (const page of paginator) {
-    for (const k of page.Contents!.map(v => v.Key!)) {
+    if (!page.Contents) {
+      continue;
+    }
+    for (const k of page.Contents.map(v => v.Key!)) {
       yield k;
     }
   }
