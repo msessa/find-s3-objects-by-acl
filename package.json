@@ -1,5 +1,5 @@
 {
-  "name": "@msessa/find-s3-objects-by-acl",
+  "name": "@sv-oss/find-s3-objects-by-acl",
   "description": "Scan a S3 bucket recursively and print objects matching one or more ACLs ",
   "bin": {
     "find-s3-objects-by-acl": "bin/find-s3-objects-by-acl"
@@ -27,7 +27,7 @@
   },
   "author": {
     "name": "Matteo Sessa",
-    "email": "matteo.sessa@gmail.com",
+    "email": "matteo.sessa@service.vic.gov.au",
     "organization": false
   },
   "devDependencies": {

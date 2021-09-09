@@ -8,13 +8,13 @@ Scan a S3 bucket recursively and print objects matching one or more ACLs
 ## Installation
 ### As global package
 ```bash
-npm install -g @msessa/find-s3-objects-by-acl
+npm install -g @sv-oss/find-s3-objects-by-acl@latest
 find-s3-objects-by-acl --help
 ```
 
 ### With `npx`
 ```bash
-npx @msessa/find-s3-objects-by-acl --help
+npx @msessa/find-s3-objects-by-acl@latest --help
 ```
 
 
