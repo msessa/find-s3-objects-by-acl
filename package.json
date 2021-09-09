@@ -26,8 +26,8 @@
     "projen": "npx projen"
   },
   "author": {
-    "name": "Matteo Sessa",
-    "email": "matteo.sessa@service.vic.gov.au",
+    "name": "Service Victoria",
+    "email": "platform@service.vic.gov.au",
     "organization": false
   },
   "devDependencies": {
