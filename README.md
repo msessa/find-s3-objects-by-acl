@@ -14,7 +14,7 @@ find-s3-objects-by-acl --help
 
 ### With `npx`
 ```bash
-npx @msessa/find-s3-objects-by-acl@latest --help
+npx @sv-oss/find-s3-objects-by-acl@latest --help
 ```
 
 
